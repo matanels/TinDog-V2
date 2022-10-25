@@ -1,0 +1,46 @@
+.main-header {
+  background-color: rgba(0, 108, 232, 0.763);
+  position: relative;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.492);
+}
+
+.main-title-btn {
+  /* display: inline-block; */
+  position: absolute;
+  bottom: -15%;
+}
+
+.main-title-btn a {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-family: "Gill Sans", sans-serif;
+  padding-left: 1rem;
+}
+
+.main-navigation-btn {
+  background: transparent;
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  position: absolute;
+  left: 90%;
+  bottom: -10%;
+}
+
+.main-navigation-btn span {
+  display: inline-block;
+  width: 2rem;
+  height: 2.5px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 1px 1px rgba(0, 0, 0, 0.492);
+}
+
+@media (min-width: 768px) {
+  .main-navigation-btn {
+    display: none;
+  }
+
+  /* .main-header {
+    display: block;
+  } */
+}

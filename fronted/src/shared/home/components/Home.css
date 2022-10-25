@@ -1,0 +1,15 @@
+.main-welcome {
+  text-align: center;
+  margin-top: 5%;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: rgb(255, 255, 255);
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.713);
+}
+.main-welcome h1 {
+  font-size: 500%;
+  margin-bottom: 20px;
+}
+
+.div {
+  padding: auto;
+}

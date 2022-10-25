@@ -1,0 +1,11 @@
+body {
+  margin: auto;
+  background-image: url("https://wallpaperaccess.com/full/769133.jpg");
+  background-position-x: 20%;
+}
+
+/* @media (max-width: 1340px) {
+  body {
+    background-position: center;
+  }
+} */

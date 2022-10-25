@@ -1,0 +1,25 @@
+.main-connect-btn {
+  width: fit-content;
+  display: inline-block;
+  list-style-type: none;
+  padding: 0px;
+  margin-left: 80%;
+}
+
+.main-connect-btn a {
+  color: rgba(255, 255, 255, 0.739);
+  font-family: "Gill Sans", sans-serif;
+  text-shadow: 1px 1px #0000008c;
+  text-decoration: none;
+}
+
+.main-connect-btn li {
+  display: inline;
+  padding: 5px;
+}
+
+@media (max-width: 768px) {
+  .main-connect-btn li {
+    display: block;
+  }
+}

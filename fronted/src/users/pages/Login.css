@@ -1,0 +1,58 @@
+.main-form {
+  font-family: "Courier New", Courier, monospace;
+  color: rgb(0, 0, 0);
+  display: block;
+  margin-top: 10%;
+  text-align: center;
+}
+
+.login-card {
+  margin: auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.492);
+  transition: 0.3s;
+  width: 600px;
+  height: auto;
+  border-radius: 3%;
+  background-color: rgba(255, 255, 255, 0.729);
+}
+
+.main-title {
+  padding: 2%;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: large;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 95%;
+  padding: 12px 20px;
+  margin: 12px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 3%;
+  border-color: rgb(0, 133, 182);
+}
+
+.loginButton {
+  background: transparent;
+  border-radius: 3px;
+  border: 2px solid rgb(0, 133, 182);
+  color: rgb(126, 112, 216);
+  margin: 2% 1em;
+  padding: 0.25em 1em;
+}
+.loginButton:hover {
+  opacity: 0.8;
+}
+
+label {
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 2%;
+  display: inline-block;
+}
+
+.register-span {
+  color: rgba(111, 111, 111, 0.963);
+}
