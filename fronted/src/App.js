@@ -9,10 +9,10 @@ import {
 import Home from "./shared/home/components/Home";
 import User from "./users/pages/User";
 import Dogs from "./dogs/pages/Dogs";
-import NotFound from "./shared/home/components/NotFound";
-import NavBar from "./shared/components/NavBar";
+import NavBar from "./shared/components/Navigation/NavBar";
 import Login from "./users/pages/Login";
 import Register from "./users/pages/Register";
+import NewDog from "./dogs/pages/NewDog";
 import { AuthContext } from "./shared/home/context/auth-context";
 
 import "./App.css";
@@ -34,7 +34,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/dogs" element={<Dogs />} />
-        {/* <Route path="/dogs/new" element={<NewDog />} /> */}
+        <Route path="/dogs/newDog" element={<NewDog />} />
         <Route path="/user/:userId" element={<User />} />
         <Route path="*" element={<User />} />
       </Routes>
@@ -49,6 +49,7 @@ const App = () => {
         <Route path="/user/register" element={<Register />} />
         <Route path="/user/login" element={<Login />} />
         <Route path="/user/:userId" element={<User />} />
+        <Route path="/dogs/newDog" element={<NewDog />} />
         <Route path="/dogs/:dogId" element={<Dogs />} />
         <Route path="*" element={<Login />} />
       </Routes>

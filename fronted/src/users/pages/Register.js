@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { USERS } from "./User.js";
-import { AuthContext } from "../../shared/home/context/auth-context.js";
 import { Link } from "react-router-dom";
 
 import "./Login.css";
@@ -30,12 +29,12 @@ const Register = () => {
         ),
       }),
       onSubmit: ({ name, email, password }) => {
-        const userLoged = USERS.find((item) => {
-          return email === item.email && password === item.password;
+        const userExits = USERS.find((item) => {
+          return email === item.email;
         });
-        if (userLoged) {
-          console.log(`${userLoged.id} exits`);
-        } else console.log("not exits");
+        if (userExits) {
+          alert(`${userExits.id} this email already registerd!`);
+        } else console.log("not exits ");
       },
     });
   return (

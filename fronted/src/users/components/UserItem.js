@@ -46,7 +46,9 @@ const UserItem = (props) => {
           })}
         </ul>
         <div>
-          <button className="addButton">+</button>
+          <Link to={"/dogs/newDog"}>
+            <button className="addButton">+</button>
+          </Link>
         </div>
         <div>
           <Link to={"/dogs"}>

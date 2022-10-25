@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../shared/home/context/auth-context";
 
 import {
   Card,
@@ -13,6 +14,8 @@ import {
 import "./DogItem.css";
 
 const DogItem = (props) => {
+  const auth = useContext(AuthContext);
+
   if (props.age) {
     return (
       <Card sx={{ maxWidth: 700, margin: "auto", marginTop: 2 }}>
@@ -68,13 +71,16 @@ const DogItem = (props) => {
           </Typography>
         </CardContent>
         <CardActions sx={{ justifyContent: "center" }}>
-          <Button size="medium">Connect</Button>
-          <Button
-            href={`https://en.wikipedia.org/wiki/${props.breed}`}
-            size="medium"
-          >
-            Learn More
-          </Button>
+          {!auth.isLoggedIn && <Button size="medium">Connect</Button>}
+
+          {!auth.isLoggedIn && (
+            <Button
+              href={`https://en.wikipedia.org/wiki/${props.breed}`}
+              size="medium"
+            >
+              Learn More
+            </Button>
+          )}
         </CardActions>
       </Card>
     );

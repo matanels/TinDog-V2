@@ -1,7 +1,8 @@
 import React from "react";
-import GoogleButton from "react-google-button";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import GoogleIcon from "@mui/icons-material/Google";
+
 // import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
-import ReactFacebookLogin from "react-facebook-login";
 import "./LoginWith.css";
 
 const LoginWith = () => {
@@ -13,7 +14,7 @@ const LoginWith = () => {
           console.log("Loggin via Google");
         }}
       >
-        {/* <i class="fab fa-google"></i> */}
+        <GoogleIcon />
       </button>
       <button
         className="login-with-btn fb-btn"
@@ -21,7 +22,7 @@ const LoginWith = () => {
           console.log("Loggin via Google");
         }}
       >
-        {/* <i className="fab fa-facebook"></i> */}
+        <FacebookIcon />
       </button>
     </div>
   );
