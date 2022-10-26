@@ -2,7 +2,6 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "./NewDog.css";
-import { redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const NewDog = () => {

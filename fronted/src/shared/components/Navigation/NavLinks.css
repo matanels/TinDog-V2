@@ -20,6 +20,6 @@
 
 @media (max-width: 768px) {
   .main-connect-btn li {
-    display: block;
+    display: none;
   }
 }

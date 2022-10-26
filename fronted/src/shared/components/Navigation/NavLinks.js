@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../home/context/auth-context";
+
 import "./NavLinks.css";
 
 const NavLinks = () => {
@@ -20,16 +21,16 @@ const NavLinks = () => {
           <NavLink to="/user/login">Login</NavLink>
         </li>
       )}
-      {/* {!auth.isLoggedIn && (
+      {auth.isLoggedIn && (
         <li>
-          <NavLink to="/user/login">Add Dog</NavLink>
+          <NavLink to="/dogs/newDog">Add Dog</NavLink>
         </li>
       )}
-      {!auth.isLoggedIn && (
+      {auth.isLoggedIn && (
         <li>
-          <NavLink to="/user/login">My Dogs</NavLink>
+          <NavLink to="/user/userId">My Dogs</NavLink>
         </li>
-      )} */}
+      )}
     </ul>
   );
 };

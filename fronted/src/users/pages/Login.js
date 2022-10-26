@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { USERS } from "./User.js";
 import { AuthContext } from "../../shared/home/context/auth-context.js";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import "./Login.css";
@@ -72,6 +73,7 @@ const Login = () => {
 
   //formik Hooks version.
   const auth = useContext(AuthContext);
+  let navigate = useNavigate();
 
   const { handleSubmit, handleChange, values, touched, errors, handleBlur } =
     useFormik({
@@ -91,9 +93,8 @@ const Login = () => {
         });
         if (userLoged) {
           console.log(`${userLoged.id} exits`);
-          // <Link to={`/user/${userLoged.id}`} />;
-          // window.location(`/user/${userLoged.id}`);
           auth.login();
+          navigate(`/user/${userLoged.id}`);
         } else console.log("not exits");
       },
     });
