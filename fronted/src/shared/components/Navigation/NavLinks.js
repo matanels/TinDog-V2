@@ -1,10 +1,13 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../home/context/auth-context";
+import { useParams } from "react-router-dom";
 
 import "./NavLinks.css";
 
 const NavLinks = () => {
+  const userId = useParams().userId;
+  console.log(useParams());
   const auth = useContext(AuthContext);
   return (
     <ul className="main-connect-btn">
@@ -28,7 +31,7 @@ const NavLinks = () => {
       )}
       {auth.isLoggedIn && (
         <li>
-          <NavLink to="/user/userId">My Dogs</NavLink>
+          <NavLink to={`/user/${userId}`}>My Dogs</NavLink>
         </li>
       )}
     </ul>

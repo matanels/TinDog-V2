@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import EditDog from "../pages/EditDog";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../shared/home/context/auth-context";
 
@@ -18,7 +19,9 @@ const DogItem = (props) => {
 
   if (props.age) {
     return (
-      <Card sx={{ maxWidth: 700, margin: "auto", marginTop: 2 }}>
+      <Card
+        sx={{ maxWidth: 700, margin: "auto", marginTop: 2, marginBottom: 2 }}
+      >
         <CardMedia
           component="img"
           height="550"
@@ -81,6 +84,12 @@ const DogItem = (props) => {
               Learn More
             </Button>
           )}
+          {auth.isLoggedIn && (
+            <Link to={`/dogs/edit/${props.id}`}>
+              <Button size="large">Edit</Button>
+            </Link>
+          )}
+          {auth.isLoggedIn && <Button size="large">Remove</Button>}
         </CardActions>
       </Card>
     );

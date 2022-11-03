@@ -12,7 +12,6 @@ const UserItem = (props) => {
     const filterdUser = props.items.filter((item) => {
       return JSON.stringify(item.id) === props.userId;
     });
-    console.log(filterdUser);
     if (filterdUser.length === 0) {
       return <h1>No dogs to display, would you like to add one?</h1>;
     }

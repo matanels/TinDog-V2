@@ -13,6 +13,7 @@ import NavBar from "./shared/components/Navigation/NavBar";
 import Login from "./users/pages/Login";
 import Register from "./users/pages/Register";
 import NewDog from "./dogs/pages/NewDog";
+import EditDog from "./dogs/pages/EditDog";
 import { AuthContext } from "./shared/home/context/auth-context";
 
 import "./App.css";
@@ -29,7 +30,7 @@ const App = () => {
   let routes;
 
   if (isLoggedIn) {
-    console.log(" logged in");
+    console.log("Logged in");
     routes = (
       <Routes>
         <Route path="/" element={<Home />} />
@@ -37,11 +38,13 @@ const App = () => {
         <Route path="/dogs/newDog" element={<NewDog />} />
         <Route path="/user/:userId" element={<User />} />
         <Route path="/dogs/:dogId" element={<Dogs />} />
+        <Route path="/dogs/edit/:dogId" element={<EditDog />} />
+
         <Route path="*" element={<User />} />
       </Routes>
     );
   } else {
-    console.log("not logged in");
+    console.log("Not logged in");
 
     routes = (
       <Routes>

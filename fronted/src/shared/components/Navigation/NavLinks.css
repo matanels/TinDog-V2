@@ -1,9 +1,7 @@
 .main-connect-btn {
-  width: fit-content;
   display: inline-block;
-  list-style-type: none;
-  padding: 0px;
-  margin-left: 80%;
+  left: 88%;
+  position: relative;
 }
 
 .main-connect-btn a {
