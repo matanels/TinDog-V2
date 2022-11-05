@@ -34,6 +34,11 @@ const NavLinks = () => {
           <NavLink to={`/user/${userId}`}>My Dogs</NavLink>
         </li>
       )}
+      {auth.isLoggedIn && (
+        <li>
+          <NavLink to="/">Log out</NavLink>
+        </li>
+      )}
     </ul>
   );
 };

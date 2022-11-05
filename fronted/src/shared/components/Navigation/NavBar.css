@@ -2,6 +2,7 @@
   background-color: rgba(0, 108, 232, 0.763);
   position: relative;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.492);
+  height: fit-content;
 }
 
 .main-title-btn {

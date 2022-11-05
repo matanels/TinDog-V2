@@ -1,7 +1,6 @@
 .main-connect-btn {
-  display: inline-block;
-  left: 88%;
-  position: relative;
+  display: block;
+  text-align: right;
 }
 
 .main-connect-btn a {

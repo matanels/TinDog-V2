@@ -1,7 +1,11 @@
-import React, { useContext } from "react";
-import EditDog from "../pages/EditDog";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../shared/home/context/auth-context";
+import Modal from "../../shared/components/UIElements/Modal";
+import {
+  DeleteButton,
+  CancelButton,
+} from "../../shared/components/UIElements/Modal.styled";
 
 import {
   Card,
@@ -15,6 +19,7 @@ import {
 import "./DogItem.css";
 
 const DogItem = (props) => {
+  const [active, setActive] = useState(false);
   const auth = useContext(AuthContext);
 
   if (props.age) {
@@ -89,7 +94,23 @@ const DogItem = (props) => {
               <Button size="large">Edit</Button>
             </Link>
           )}
-          {auth.isLoggedIn && <Button size="large">Remove</Button>}
+          {auth.isLoggedIn && (
+            <div>
+              <Button size="large" onClick={() => setActive(true)}>
+                DELETE
+              </Button>
+              <Modal
+                active={active}
+                hideModal={() => setActive(false)}
+                title="Are you sure?"
+                cancelButton={<CancelButton>Cancel</CancelButton>}
+                deleteButton={<DeleteButton>Delete</DeleteButton>}
+              >
+                Do you really want ro delete {props.name}? This process
+                cannot be undone.
+              </Modal>
+            </div>
+          )}
         </CardActions>
       </Card>
     );
