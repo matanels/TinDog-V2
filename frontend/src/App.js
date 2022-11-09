@@ -1,10 +1,5 @@
 import React, { useState, useCallback } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./shared/home/components/Home";
 import User from "./users/pages/User";
@@ -39,8 +34,7 @@ const App = () => {
         <Route path="/user/:userId" element={<User />} />
         <Route path="/dogs/:dogId" element={<Dogs />} />
         <Route path="/dogs/edit/:dogId" element={<EditDog />} />
-
-        <Route path="*" element={<User />} />
+        <Route path="*" element={<Home />} />
       </Routes>
     );
   } else {
@@ -52,7 +46,6 @@ const App = () => {
         <Route path="/dogs" element={<Dogs />} />
         <Route path="/user/register" element={<Register />} />
         <Route path="/user/login" element={<Login />} />
-        <Route path="/user/:userId" element={<User />} />
         <Route path="/dogs/newDog" element={<NewDog />} />
         <Route path="/dogs/:dogId" element={<Dogs />} />
         <Route path="*" element={<Login />} />

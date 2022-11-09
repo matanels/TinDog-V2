@@ -13,7 +13,9 @@ const UserItem = (props) => {
       return JSON.stringify(item.id) === props.userId;
     });
     if (filterdUser.length === 0) {
-      return <h1>No dogs to display, would you like to add one?</h1>;
+      return (
+        <h1>Sorry there is no such a User, would you like to register?</h1>
+      );
     }
     let myDogs = [];
     filterdUser.map((item) => {

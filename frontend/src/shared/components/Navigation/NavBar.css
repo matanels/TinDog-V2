@@ -6,9 +6,9 @@
 }
 
 .main-title-btn {
-  /* display: inline-block; */
-  position: absolute;
-  bottom: -15%;
+  display: inline;
+  /* position: absolute; */
+  /* bottom: -15%; */
 }
 
 .main-title-btn a {

@@ -1,6 +1,7 @@
 .main-connect-btn {
   display: block;
   text-align: right;
+  margin-right: 8px;
 }
 
 .main-connect-btn a {
@@ -12,7 +13,7 @@
 
 .main-connect-btn li {
   display: inline;
-  padding: 5px;
+  padding: 7px;
 }
 
 @media (max-width: 768px) {

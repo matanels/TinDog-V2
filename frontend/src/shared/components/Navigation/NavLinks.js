@@ -7,8 +7,8 @@ import "./NavLinks.css";
 
 const NavLinks = () => {
   const userId = useParams().userId;
-  console.log(useParams());
   const auth = useContext(AuthContext);
+  console.log(useParams());
   return (
     <ul className="main-connect-btn">
       <li>
@@ -36,7 +36,14 @@ const NavLinks = () => {
       )}
       {auth.isLoggedIn && (
         <li>
-          <NavLink to="/">Log out</NavLink>
+          <NavLink
+            to="/"
+            onClick={() => {
+              auth.logout();
+            }}
+          >
+            Log out
+          </NavLink>
         </li>
       )}
     </ul>
