@@ -106,7 +106,7 @@ const DogItem = (props) => {
                 cancelButton={<CancelButton>Cancel</CancelButton>}
                 deleteButton={<DeleteButton>Delete</DeleteButton>}
               >
-                Do you really want ro delete {props.name}? This process
+                Do you really want to delete {props.name}? This process
                 cannot be undone.
               </Modal>
             </div>

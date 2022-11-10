@@ -1,7 +1,8 @@
+const { validationResult } = require("express-validator");
 const HttpError = require("../models/http-error");
 const { v4: uuidv4 } = require("uuid");
 
-const DOGS = [
+let DOGS = [
   {
     id: "u1",
     name: "Thomas",
@@ -44,12 +45,19 @@ const getDogById = (req, res, next) => {
   }
   res.json({ dog });
 };
-
 const getAllDogs = (req, res, next) => {
-  res.json({ DOGS });
+  res.json({ dogs: DOGS });
 };
-
 const createDog = (req, res, next) => {
+  const errors = validationResult(req);
+  console.log(errors);
+  if (!errors.isEmpty()) {
+    throw new HttpError(
+      "Invalid inputs passed, please check your data.",
+      422
+    );
+  }
+
   const { name, age, breed, from, image, gender } = req.body;
   const createdDog = {
     id: uuidv4(),
@@ -63,7 +71,37 @@ const createDog = (req, res, next) => {
   DOGS.push(createdDog);
   res.status(201).json({ dog: createdDog });
 };
+const updateDog = (req, res, next) => {
+  const { name, age, breed, from, image, gender } = req.body;
+  const dogId = req.params.dogId;
+  const dogToUpdate = {
+    ...DOGS.find((d) => {
+      d.id === dogId;
+    }),
+  };
+  if (!dogToUpdate) {
+    throw new HttpError("Could not find a dog for the provided id.", 404);
+  }
+  const dogToUpdateIndex = DOGS.findIndex((d) => d.id === dogId);
+  dogToUpdate.name = name;
+  dogToUpdate.age = age;
+  dogToUpdate.breed = breed;
+  dogToUpdate.from = from;
+  dogToUpdate.image = image;
+  dogToUpdate.gender = gender;
+  DOGS[dogToUpdateIndex] = dogToUpdate;
+  console.log(dogToUpdateIndex);
+  console.log(dogToUpdate);
+  res.status(200).json({ dog: dogToUpdate });
+};
+const deleteDog = (req, res, next) => {
+  const dogId = req.params.dogId;
+  DOGS = DOGS.filter((d) => d.id !== dogId);
+  res.status(200).json({ message: "Dog deleted." });
+};
 
 exports.getDogById = getDogById;
 exports.getAllDogs = getAllDogs;
 exports.createDog = createDog;
+exports.updateDog = updateDog;
+exports.deleteDog = deleteDog;
