@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+
+import SpinnerModal from "../../shared/components/UIElements/SpinnerModal";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { USERS } from "./User.js";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../shared/home/context/auth-context.js";
 
 import "./Login.css";
 
 const Register = () => {
   //formik Hooks version.
+  const auth = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
 
   const { handleSubmit, handleChange, values, touched, errors, handleBlur } =
     useFormik({
@@ -28,17 +33,43 @@ const Register = () => {
           "Passwords must match"
         ),
       }),
-      onSubmit: ({ name, email, password }) => {
-        const userExits = USERS.find((item) => {
-          return email === item.email;
-        });
-        if (userExits) {
-          alert(`${userExits.id} this email already registerd!`);
-        } else console.log("not exits ");
+      onSubmit: async ({ name, email, password }) => {
+        // const userExits = USERS.find((item) => {
+        //   return email === item.email;
+        // });
+        // if (userExits) {
+        //   alert(`${userExits.id} this email already registerd!`);
+        // } else console.log("not exits ");
+        try {
+          setIsLoading(true);
+          const response = await fetch(
+            "http://localhost:5000/api/users/signup",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                name,
+                email,
+                password,
+              }),
+            }
+          );
+          const responseData = await response.json();
+          console.log(responseData);
+          setIsLoading(false);
+          auth.login();
+        } catch (err) {
+          console.log(err);
+          setIsLoading(false);
+          setError(err.message || "Something went wrong, please try again.");
+        }
       },
     });
   return (
     <form className="main-form" onSubmit={handleSubmit}>
+      {isLoading && <SpinnerModal />}
       <div className="login-card">
         <div className="main-title">
           <h1>Register</h1>

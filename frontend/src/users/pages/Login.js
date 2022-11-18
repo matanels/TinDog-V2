@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { USERS } from "./User.js";
@@ -8,71 +8,11 @@ import { Link } from "react-router-dom";
 
 import "./Login.css";
 import LoginWith from "../components/LoginWith.js";
+import SpinnerModal from "../../shared/components/UIElements/SpinnerModal";
 
 const Login = () => {
-  //React Hooks version
-
-  //   const [login, setLogin] = useState({
-  //     email: "",
-  //     password: "",
-  //   });
-  //   const HandleSubmit = (e) => {
-  //     const userLoged = USERS.find((item) => {
-  //       return login.email === item.email && login.password === item.password;
-  //     });
-  //     if (userLoged) {
-  //       return <User id={userLoged.id} />;
-  //       // return <Link to={`/user/${userLoged.id}`} />; //stopped here
-  //     } else console.log("not exits");
-  //     e.preventDefault();
-  //   };
-
-  //   const onChangeHandle = (e) => {
-  //     const value = e.target.value;
-  //     setLogin({
-  //       ...login,
-  //       [e.target.name]: value,
-  //     });
-  //     e.preventDefault();
-  //   };
-
-  //   return (
-  //     <form className="main-form" onSubmit={HandleSubmit}>
-  //       <div className="login-card">
-  //         <div className="main-title">
-  //           <h1>Login</h1>
-  //           <hr />
-  //         </div>
-  //         <div>
-  //           <label htmlFor="email">Email</label>
-  //           <input
-  //             type="text"
-  //             placeholder="Enter Username"
-  //             name="email"
-  //             value={login.email}
-  //             onChange={onChangeHandle}
-  //             required
-  //           ></input>
-  //         </div>
-  //         <div>
-  //           <label htmlFor="password">Password</label>
-  //           <input
-  //             type="password"
-  //             placeholder="Enter Password"
-  //             name="password"
-  //             value={login.password}
-  //             onChange={onChangeHandle}
-  //             required
-  //           ></input>
-  //         </div>
-  //         <button>Login</button>
-  //         <button>Cancel</button>
-  //       </div>
-  //     </form>
-  //   );
-
-  //formik Hooks version.
   const auth = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
   let navigate = useNavigate();
 
   const { handleSubmit, handleChange, values, touched, errors, handleBlur } =
@@ -87,19 +27,24 @@ const Login = () => {
           .min(6, "Password should be longer then 6 characters.")
           .required(),
       }),
-      onSubmit: ({ email, password }) => {
+      onSubmit: async ({ email, password }) => {
         const userLoged = USERS.find((item) => {
           return email === item.email && password === item.password;
         });
         if (userLoged) {
           console.log(`${userLoged.id} exits`);
+          setIsLoading(true);
           auth.login();
           navigate(`/user/${userLoged.id}`);
-        } else console.log("not exits");
+        } else {
+          console.log("not exits");
+          setIsLoading(false);
+        }
       },
     });
   return (
     <form className="main-form" onSubmit={handleSubmit}>
+      {isLoading && <SpinnerModal />}
       <div className="login-card">
         <div className="main-title">
           <h1>Login</h1>

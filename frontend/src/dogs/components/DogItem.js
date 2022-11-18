@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../shared/home/context/auth-context";
-import Modal from "../../shared/components/UIElements/Modal";
+import DeleteModal from "../../shared/components/UIElements/DeleteModal";
 import {
   DeleteButton,
   CancelButton,
@@ -99,7 +99,7 @@ const DogItem = (props) => {
               <Button size="large" onClick={() => setActive(true)}>
                 DELETE
               </Button>
-              <Modal
+              <DeleteModal
                 active={active}
                 hideModal={() => setActive(false)}
                 title="Are you sure?"
@@ -108,7 +108,7 @@ const DogItem = (props) => {
               >
                 Do you really want to delete {props.name}? This process
                 cannot be undone.
-              </Modal>
+              </DeleteModal>
             </div>
           )}
         </CardActions>

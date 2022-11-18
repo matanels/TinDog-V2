@@ -1,106 +1,191 @@
+const mongoose = require("mongoose");
 const { validationResult } = require("express-validator");
 const HttpError = require("../models/http-error");
-const { v4: uuidv4 } = require("uuid");
+const Dog = require("../models/dog");
+const User = require("../models/user");
+const user = require("../models/user");
+const dog = require("../models/dog");
 
-let DOGS = [
-  {
-    id: "u1",
-    name: "Thomas",
-    age: "1.9",
-    breed: "American akita",
-    from: "Karmiel",
-    image:
-      "https://i.pinimg.com/736x/94/ba/ce/94bace114138c471a1a48905dd2ee949.jpg",
-    gender: "male",
-  },
-  {
-    id: "u2",
-    name: "John",
-    age: "3",
-    breed: "Pitbull",
-    from: "London",
-    image:
-      "https://geniusvets.s3.amazonaws.com/gv-dog-breeds/american-pitbull-1.jpg",
-    gender: "male",
-  },
-  {
-    id: "u8",
-    name: "Loei",
-    age: "3",
-    breed: "yorkshire-terrier",
-    from: "Karmiel",
-    image:
-      "https://dogs-train.co.il/wp-content/uploads/2019/09/yorkshire-terrier-cover.jpg",
-    gender: "male",
-  },
-];
-
-const getDogById = (req, res, next) => {
+const getDogById = async (req, res, next) => {
   const dogId = req.params.dogId;
-  const dog = DOGS.find((d) => {
-    return d.id === dogId;
-  });
-  if (!dog) {
-    throw new HttpError("Could not find a dog for the provided id.", 404);
+  let dog;
+  try {
+    dog = await Dog.findById(dogId);
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not find a dog.",
+      500
+    );
+    return next(error);
   }
-  res.json({ dog });
+
+  if (!dog) {
+    const error = new HttpError(
+      "Could not find a dog for the provided id.",
+      404
+    );
+    return next(error);
+  }
+  res.json({ dog: dog.toObject({ getters: true }) });
 };
-const getAllDogs = (req, res, next) => {
-  res.json({ dogs: DOGS });
+const getDogsByUserId = async (req, res, next) => {
+  const userId = req.params.userId;
+  let dogs;
+  try {
+    dogs = await Dog.find({ creator: userId });
+  } catch (err) {
+    const error = new HttpError(
+      "Fetching dogs failed, please try again later.",
+      500
+    );
+    return next(error);
+  }
+  if (!dogs || dogs.length === 0) {
+    const error = new HttpError(
+      "Could not find a dog for the provided id.",
+      404
+    );
+    return next(error);
+  }
+  res.json({ dogs: dogs.map((dog) => dog.toObject({ getters: true })) });
 };
-const createDog = (req, res, next) => {
+const getAllDogs = async (req, res, next) => {
+  let dogs;
+  try {
+    dogs = await Dog.find();
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not find a dog.",
+      500
+    );
+    return next(error);
+  }
+  if (!dogs || dogs.length === 0) {
+    const error = new HttpError(
+      "Could not find a dog for the provided id.",
+      404
+    );
+    return next(error);
+  }
+  res.json({ dogs: dogs.map((dog) => dog.toObject({ getters: true })) });
+};
+const createDog = async (req, res, next) => {
   const errors = validationResult(req);
-  console.log(errors);
   if (!errors.isEmpty()) {
-    throw new HttpError(
-      "Invalid inputs passed, please check your data.",
-      422
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
     );
   }
-
-  const { name, age, breed, from, image, gender } = req.body;
-  const createdDog = {
-    id: uuidv4(),
+  const { name, age, breed, from, image, gender, creator } = req.body;
+  const createdDog = new Dog({
     name,
     age,
     breed,
     from,
     image,
     gender,
-  };
-  DOGS.push(createdDog);
-  res.status(201).json({ dog: createdDog });
+    creator,
+  });
+  let user;
+  try {
+    user = await User.findById(creator);
+  } catch (err) {
+    const error = new HttpError(
+      "Creating dog failed, please try again.",
+      500
+    );
+    return next(error);
+  }
+  if (!user) {
+    const error = new HttpError("Could not find user for provided id.", 404);
+    return next(error);
+  }
+  try {
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    await createdDog.save({ session: sess });
+    user.dogsId.push(createdDog);
+    await user.save({ session: sess });
+    await sess.commitTransaction();
+  } catch (err) {
+    const error = new HttpError(
+      "Creating dog failed, please try again.",
+      500
+    );
+    return next(error);
+  }
+  res.status(201).json({ dog: createdDog.toObject({ getters: true }) });
 };
-const updateDog = (req, res, next) => {
+const updateDog = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
+  }
   const { name, age, breed, from, image, gender } = req.body;
   const dogId = req.params.dogId;
-  const dogToUpdate = {
-    ...DOGS.find((d) => {
-      d.id === dogId;
-    }),
-  };
-  if (!dogToUpdate) {
-    throw new HttpError("Could not find a dog for the provided id.", 404);
+  let dogToUpdate;
+  try {
+    dogToUpdate = await Dog.findById(dogId);
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not update dog.",
+      500
+    );
+    return next(error);
   }
-  const dogToUpdateIndex = DOGS.findIndex((d) => d.id === dogId);
   dogToUpdate.name = name;
   dogToUpdate.age = age;
   dogToUpdate.breed = breed;
   dogToUpdate.from = from;
   dogToUpdate.image = image;
   dogToUpdate.gender = gender;
-  DOGS[dogToUpdateIndex] = dogToUpdate;
-  console.log(dogToUpdateIndex);
-  console.log(dogToUpdate);
-  res.status(200).json({ dog: dogToUpdate });
+
+  try {
+    await dogToUpdate.save();
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not update dog.",
+      500
+    );
+    return next(error);
+  }
+
+  res.status(200).json({ dog: dogToUpdate.toObject({ getters: true }) });
 };
-const deleteDog = (req, res, next) => {
+const deleteDog = async (req, res, next) => {
   const dogId = req.params.dogId;
-  DOGS = DOGS.filter((d) => d.id !== dogId);
+  let dogToDelete;
+  try {
+    dogToDelete = await Dog.findById(dogId).populate("creator");
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not delete dog.",
+      500
+    );
+    return next(error);
+  }
+  if (!dogToDelete) {
+    const error = new HttpError("Could not find a dog for this id.", 404);
+    return next(error);
+  }
+  try {
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    await dogToDelete.deleteOne({ session: sess });
+    dogToDelete.creator.dogsId.pull(dogToDelete);
+    await dogToDelete.creator.save({ session: sess });
+    await sess.commitTransaction();
+  } catch (err) {
+    const error = new HttpError("Could not delete dog with that id", 404);
+    return next(error);
+  }
   res.status(200).json({ message: "Dog deleted." });
 };
 
 exports.getDogById = getDogById;
+exports.getDogsByUserId = getDogsByUserId;
 exports.getAllDogs = getAllDogs;
 exports.createDog = createDog;
 exports.updateDog = updateDog;
