@@ -23,6 +23,7 @@ const DogItem = (props) => {
   const auth = useContext(AuthContext);
 
   if (props.age) {
+    //When clicked on specific dog for more information
     return (
       <Card
         sx={{ maxWidth: 700, margin: "auto", marginTop: 2, marginBottom: 2 }}
@@ -116,6 +117,7 @@ const DogItem = (props) => {
     );
   }
   return (
+    //the main "dog" page where all the dogs signed in are displayed
     <div className="dog-card">
       <Link to={`/dogs/${props.id}`}>
         <div className="dog-img-div">

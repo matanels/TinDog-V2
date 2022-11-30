@@ -8,6 +8,7 @@ import "./NavLinks.css";
 const NavLinks = () => {
   const userId = useParams().userId;
   const auth = useContext(AuthContext);
+
   console.log(useParams());
   return (
     <ul className="main-connect-btn">
@@ -31,7 +32,7 @@ const NavLinks = () => {
       )}
       {auth.isLoggedIn && (
         <li>
-          <NavLink to={`/user/${userId}`}>My Dogs</NavLink>
+          <NavLink to={`/users/${auth.userId}`}>My Dogs</NavLink>
         </li>
       )}
       {auth.isLoggedIn && (

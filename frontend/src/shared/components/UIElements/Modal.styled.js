@@ -90,3 +90,11 @@ export const CancelButton = styled.button`
   border-radius: 3px;
   cursor: pointer;
 `;
+export const OkButton = styled.button`
+  background: grey;
+  color: white;
+  font-size: 1.2em;
+  border: 0 solid black;
+  border-radius: 3px;
+  cursor: pointer;
+`;

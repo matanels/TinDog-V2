@@ -15,11 +15,15 @@ import "./App.css";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const login = useCallback(() => {
+  const [userId, setUserId] = useState();
+
+  const login = useCallback((uid) => {
     setIsLoggedIn(true);
+    setUserId(uid);
   }, []);
   const logout = useCallback(() => {
     setIsLoggedIn(false);
+    setUserId(null);
   }, []);
 
   let routes;
@@ -31,7 +35,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/dogs" element={<Dogs />} />
         <Route path="/dogs/newDog" element={<NewDog />} />
-        <Route path="/user/:userId" element={<User />} />
+        <Route path="/users/:userId" element={<User />} />
         <Route path="/dogs/:dogId" element={<Dogs />} />
         <Route path="/dogs/edit/:dogId" element={<EditDog />} />
         <Route path="*" element={<Home />} />
@@ -44,9 +48,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/dogs" element={<Dogs />} />
-        <Route path="/user/register" element={<Register />} />
-        <Route path="/user/login" element={<Login />} />
-        <Route path="/dogs/newDog" element={<NewDog />} />
+        <Route path="/users/register" element={<Register />} />
+        <Route path="/users/login" element={<Login />} />
         <Route path="/dogs/:dogId" element={<Dogs />} />
         <Route path="*" element={<Login />} />
       </Routes>
@@ -54,7 +57,12 @@ const App = () => {
   }
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
+      value={{
+        isLoggedIn: isLoggedIn,
+        userId: userId,
+        login: login,
+        logout: logout,
+      }}
     >
       <Router>
         <NavBar />
