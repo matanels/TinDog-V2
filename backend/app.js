@@ -37,7 +37,9 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect()
+  .connect(
+    `mongodb+srv://${USER_NAME}:${SECRET_KEY}@cluster0.ny4i9yt.mongodb.net/TinDog?retryWrites=true&w=majority`
+  )
   .then(() => {
     app.listen(5000), console.log("Connected on port 5000!");
   })
