@@ -2,8 +2,7 @@ import React, { useState, useContext } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { AuthContext } from "../../shared/home/context/auth-context.js";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import "./Login.css";
 import LoginWith from "../components/LoginWith.js";

@@ -1,15 +1,12 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../home/context/auth-context";
-import { useParams } from "react-router-dom";
 
 import "./NavLinks.css";
 
 const NavLinks = () => {
-  const userId = useParams().userId;
   const auth = useContext(AuthContext);
 
-  console.log(useParams());
   return (
     <ul className="main-connect-btn">
       <li>
@@ -17,12 +14,12 @@ const NavLinks = () => {
       </li>
       {!auth.isLoggedIn && (
         <li>
-          <NavLink to="/user/register">Register</NavLink>
+          <NavLink to="/users/register">Register</NavLink>
         </li>
       )}
       {!auth.isLoggedIn && (
         <li>
-          <NavLink to="/user/login">Login</NavLink>
+          <NavLink to="/users/login">Login</NavLink>
         </li>
       )}
       {auth.isLoggedIn && (

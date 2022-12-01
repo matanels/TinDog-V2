@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 import ErrorModal from "../UIElements/ErrorModal";
 import SpinnerModal from "../UIElements/SpinnerModal";
@@ -15,6 +16,8 @@ const DogForm = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorActive, setErrorActive] = useState(false);
   const [error, setError] = useState();
+
+  let navigate = useNavigate();
 
   const { handleSubmit, handleChange, values, touched, errors, handleBlur } =
     useFormik({
@@ -66,6 +69,7 @@ const DogForm = (props) => {
           setIsLoading(false);
           auth.login(responseData.dog.id);
           // navigate(`/user/${responseData.id}`);
+          navigate("/");
         } catch (err) {
           setIsLoading(false);
           setErrorActive(true);

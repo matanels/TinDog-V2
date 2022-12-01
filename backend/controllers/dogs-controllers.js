@@ -137,10 +137,10 @@ const updateDog = async (req, res, next) => {
   }
   dogToUpdate.name = name;
   dogToUpdate.age = age;
-  dogToUpdate.breed = breed;
   dogToUpdate.from = from;
-  dogToUpdate.image = image;
+  dogToUpdate.breed = breed;
   dogToUpdate.gender = gender;
+  dogToUpdate.image = image;
 
   try {
     await dogToUpdate.save();

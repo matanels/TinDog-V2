@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 
 import SpinnerModal from "../../shared/components/UIElements/SpinnerModal";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
-import { OkButton } from "../../shared/components/UIElements/Modal.styled";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -41,7 +40,7 @@ const Register = () => {
         try {
           setIsLoading(true);
           const response = await fetch(
-            "http://localhost:5000/api/users/signup",
+            "http://localhost:5000/api/users/register",
             {
               method: "POST",
               headers: {

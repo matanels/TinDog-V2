@@ -44,7 +44,6 @@ const Dogs = () => {
   const [error, setError] = useState();
   const [loadedDogs, setLoadedDogs] = useState();
   const dogId = useParams().dogId;
-  console.log(dogId);
   useEffect(() => {
     const sendRequest = async () => {
       setIsLoading(true);
@@ -79,7 +78,6 @@ const Dogs = () => {
       {!isLoading && loadedDogs && (
         <DogList items={loadedDogs} dogId={dogId} />
       )}
-      ;
     </React.Fragment>
   );
 };
