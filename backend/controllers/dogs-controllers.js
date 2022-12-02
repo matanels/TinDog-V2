@@ -3,8 +3,6 @@ const { validationResult } = require("express-validator");
 const HttpError = require("../models/http-error");
 const Dog = require("../models/dog");
 const User = require("../models/user");
-const user = require("../models/user");
-const dog = require("../models/dog");
 
 const getDogById = async (req, res, next) => {
   const dogId = req.params.dogId;

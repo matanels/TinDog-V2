@@ -72,7 +72,6 @@ const UserItem = (props) => {
         <h1>Sorry there is no such a User, would you like to register?</h1>
       );
     }
-    console.log(filterdUser);
     let myDogs = [];
     filterdUser.map((item) => {
       item.dogsId.filter((dog) => {

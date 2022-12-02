@@ -54,7 +54,6 @@ const Dogs = () => {
           throw new Error(responseData.message);
         }
         setLoadedDogs(responseData.dogs);
-        console.log(responseData);
       } catch (err) {
         setIsLoading(false);
         setErrorActive(true);
