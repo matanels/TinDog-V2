@@ -5,6 +5,8 @@ import DogForm from "../../shared/components/FormElements/DogForm";
 const NewDog = () => {
   return (
     <DogForm
+      method="POST"
+      url="http://localhost:5000/api/dogs"
       title="Add a new friend"
       labelName="Name"
       labelAge="Age"

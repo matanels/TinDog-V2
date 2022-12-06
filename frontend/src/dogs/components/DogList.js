@@ -22,6 +22,7 @@ const DogList = (props) => {
         from={filterdItem[0].from}
         image={filterdItem[0].image}
         gender={filterdItem[0].gender}
+        creator={filterdItem[0].creator}
       />
     );
   }

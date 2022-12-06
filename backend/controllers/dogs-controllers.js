@@ -179,7 +179,9 @@ const deleteDog = async (req, res, next) => {
     const error = new HttpError("Could not delete dog with that id", 404);
     return next(error);
   }
-  res.status(200).json({ message: "Dog deleted." });
+  res
+    .status(200)
+    .json({ userId: dogToDelete.creator.id, message: "Dog deleted." });
 };
 
 exports.getDogById = getDogById;

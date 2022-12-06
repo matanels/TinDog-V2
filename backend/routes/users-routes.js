@@ -12,14 +12,14 @@ router.post(
   "/register",
   check("name").not().isEmpty(),
   check("email").normalizeEmail().isEmail(),
-  check("password").isLength({ min: 5 }),
+  check("password").isLength({ min: 6 }),
   userControllers.signup
 );
 
 router.post(
   "/login",
   check("email").normalizeEmail().isEmail(),
-  check("password").isLength({ min: 5 }),
+  check("password").isLength({ min: 6 }),
   userControllers.login
 );
 

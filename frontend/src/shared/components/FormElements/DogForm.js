@@ -17,7 +17,7 @@ const DogForm = (props) => {
   const [errorActive, setErrorActive] = useState(false);
   const [error, setError] = useState();
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const { handleSubmit, handleChange, values, touched, errors, handleBlur } =
     useFormik({
@@ -49,8 +49,8 @@ const DogForm = (props) => {
       }) => {
         try {
           setIsLoading(true);
-          const response = await fetch("http://localhost:5000/api/dogs", {
-            method: "POST",
+          const response = await fetch(`${props.url}`, {
+            method: `${props.method}`,
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               name,
@@ -67,9 +67,9 @@ const DogForm = (props) => {
             throw new Error(responseData.message);
           }
           setIsLoading(false);
-          auth.login(responseData.dog.id);
-          // navigate(`/user/${responseData.id}`);
-          navigate("/");
+          auth.login(responseData.dog.creator);
+          navigate(`/users/${auth.userId}`);
+          // navigate("/");
         } catch (err) {
           setIsLoading(false);
           setErrorActive(true);
